@@ -12,7 +12,8 @@ const authUser = async (req, res, next) => {
     // Checking if user exists and password matches
     if (user && (await user.matchPassword(password))) {
       // Generating token for authenticated user
-      generateToken(res, user._id);
+      const token = generateToken(res, user._id);
+      console.log(token);
 
       // Sending user information in response
       res.status(200).json({
@@ -20,6 +21,7 @@ const authUser = async (req, res, next) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        token: token,
       });
     } else {
       res.status(401);
@@ -50,7 +52,7 @@ const registerUser = async (req, res, next) => {
     });
 
     if (user) {
-      generateToken(res, user._id); // Generating token for new user
+      const token = generateToken(res, user._id); // Generating token for new user
 
       // Sending user information in response
       res.status(201).json({
@@ -58,6 +60,7 @@ const registerUser = async (req, res, next) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        token: token,
       });
     } else {
       res.status(400);

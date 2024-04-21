@@ -15,7 +15,7 @@ const { protect, checkRole } = require("../middleware/authMiddleware");
 router.get("/profile", protect, getUserProfile);
 
 // Route to get user profile by ID
-router.get("/profile/:id", protect, getUserProfileById);
+router.get("/profile/:id", getUserProfileById);
 
 // Route to get all profiles (Only accessible to admins)
 router.get("/allProfiles", protect, checkRole(["admin"]), getAllProfiles);
