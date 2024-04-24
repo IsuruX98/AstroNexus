@@ -52,7 +52,7 @@ const AstronomyPictureOfDay = () => {
 
   return (
     <div className="bg-gray-900 min-h-screen text-white py-8 px-4 md:px-8 lg:px-16 xl:px-32 relative">
-      <div className="md:flex md:justify-between md:items-center block">
+      <div className="md:flex md:justify-between md:items-center block mb-8">
         <h1 className="text-4xl font-bold md:mb-0 mb-8">
           Astronomy Picture of the Day
         </h1>
@@ -63,6 +63,18 @@ const AstronomyPictureOfDay = () => {
           Click here to filter images
         </button>
       </div>
+
+      <p className="text-gray-400 text-lg mb-8">
+        One of the most popular websites at NASA is the Astronomy Picture of the
+        Day. In fact, this website is one of the most popular websites across
+        all federal agencies. It has the popular appeal of a Justin Bieber
+        video. This endpoint structures the APOD imagery and associated metadata
+        so that it can be repurposed for other applications. In addition, if the
+        concept_tags parameter is set to True, then keywords derived from the
+        image explanation are returned. These keywords could be used as
+        auto-generated hashtags for twitter or instagram feeds; but generally
+        help with discoverability of relevant imagery.
+      </p>
 
       {loading && <LoadingSpinner />}
       {modalOpen && (

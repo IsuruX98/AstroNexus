@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const courses = [
+const services = [
   {
     title: "Mars Rover Photos",
     description:
@@ -8,6 +9,7 @@ const courses = [
     imageUrl:
       "https://scitechdaily.com/images/NASA-Curiosity-Mars-Rover-Art.jpg",
     alt: "Mars Rover Photos",
+    route: "/mrp",
   },
   {
     title: "Astronomy Picture of the Day",
@@ -16,18 +18,20 @@ const courses = [
     imageUrl:
       "https://c02.purpledshub.com/uploads/sites/41/2021/01/astronomy-beginners-uk-7f589e4.jpg",
     alt: "Astronomy Picture of the Day",
+    route: "/apd",
   },
   {
-    title: "Earth Imagery APIs",
+    title: "Earth Polychromatic Imaging Camera",
     description:
-      "Access satellite imagery of Earth from NASA's APIs for various applications and research purposes.",
+      "Access satellite imagery of Earth from NASA's EPIC for various applications and research purposes.",
     imageUrl:
       "https://cff2.earth.com/uploads/2022/05/05083713/Poverty4-scaled.jpg",
-    alt: "Earth Imagery APIs",
+    alt: "Earth Polychromatic Imaging Camera",
+    route: "/epic",
   },
 ];
 
-const FeaturedCourses = () => {
+const FeaturedServices = () => {
   return (
     <div id="Services" className="bg-gray-900 pb-20 pt-32 lg:px-32 px-12">
       <div className="container mx-auto">
@@ -44,21 +48,20 @@ const FeaturedCourses = () => {
           </p>
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {courses.map((course, index) => (
-            <div
-              key={index}
-              className="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg"
-            >
-              <img
-                src={course.imageUrl}
-                alt={course.alt}
-                className="w-full h-48 object-cover mb-4 rounded-lg"
-              />
-              <h4 className="text-white text-lg font-semibold mb-2">
-                {course.title}
-              </h4>
-              <p className="text-gray-300">{course.description}</p>
-            </div>
+          {services.map((service, index) => (
+            <Link to={service.route} key={index}>
+              <div className="bg-gray-800 p-6 rounded-lg shadow-md transition duration-300 hover:shadow-lg hover:ring-2 hover:ring-sky-500 cursor-pointer">
+                <img
+                  src={service.imageUrl}
+                  alt={service.alt}
+                  className="w-full h-48 object-cover mb-4 rounded-lg"
+                />
+                <h4 className="text-white text-lg font-semibold mb-2">
+                  {service.title}
+                </h4>
+                <p className="text-gray-300">{service.description}</p>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -66,4 +69,4 @@ const FeaturedCourses = () => {
   );
 };
 
-export default FeaturedCourses;
+export default FeaturedServices;

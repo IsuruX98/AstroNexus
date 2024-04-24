@@ -100,12 +100,12 @@ const Navbar = () => {
                   Mars Rover Photos
                 </Link>
                 <Link
-                  to="Skills"
+                  to="/epic"
                   onClick={() => setDropdownOpen(false)}
                   className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 hover:text-gray-900"
                   role="menuitem"
                 >
-                  Earth imagery API
+                  Earth Polychromatic Imaging Camera
                 </Link>
               </div>
             </div>
@@ -195,7 +195,7 @@ const Navbar = () => {
           {/* Render the same navigation links as in large screen */}
           <li className="p-4 border-b border-white hover:text-lg hover:font-bold">
             <Link
-              to="Education"
+              to="/apd"
               onClick={() => {
                 setNav(false);
               }}
@@ -205,7 +205,7 @@ const Navbar = () => {
           </li>
           <li className="p-4 border-b border-white hover:text-lg hover:font-bold">
             <Link
-              to="Skills"
+              to="/mrp"
               onClick={() => {
                 setNav(false);
               }}
@@ -215,12 +215,14 @@ const Navbar = () => {
           </li>
           <li className="p-4 border-b border-white hover:text-lg hover:font-bold">
             <Link
-              to="Skills"
+              to="/epic"
               onClick={() => {
                 setNav(false);
               }}
             >
-              <div className="cursor-pointer">Earth imagery API</div>
+              <div className="cursor-pointer">
+                Earth Polychromatic Imaging Camera
+              </div>
             </Link>
           </li>
           {/* Add any additional links here */}
