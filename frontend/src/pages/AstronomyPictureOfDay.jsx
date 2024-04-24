@@ -47,8 +47,8 @@ const AstronomyPictureOfDay = () => {
       </h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="max-w-lg mx-auto mb-8">
-          <label htmlFor="dateMode" className="block mb-2">
-            Select Date Mode:
+          <label htmlFor="dateMode" className="block mb-2 text-lg">
+            Choose Date Selection Mode:
           </label>
           <select
             id="dateMode"
@@ -62,7 +62,7 @@ const AstronomyPictureOfDay = () => {
         </div>
         {dateMode === "single" && (
           <div className="max-w-lg mx-auto mb-8">
-            <label htmlFor="startDate" className="block mb-2">
+            <label htmlFor="startDate" className="block mb-2 text-lg">
               Select a Date:
             </label>
             <input
@@ -77,7 +77,7 @@ const AstronomyPictureOfDay = () => {
         {dateMode === "range" && (
           <>
             <div className="max-w-lg mx-auto mb-8">
-              <label htmlFor="startDate" className="block mb-2">
+              <label htmlFor="startDate" className="block mb-2 text-lg">
                 Start Date:
               </label>
               <input
@@ -89,7 +89,7 @@ const AstronomyPictureOfDay = () => {
               />
             </div>
             <div className="max-w-lg mx-auto mb-8">
-              <label htmlFor="endDate" className="block mb-2">
+              <label htmlFor="endDate" className="block mb-2 text-lg">
                 End Date:
               </label>
               <input
@@ -103,7 +103,7 @@ const AstronomyPictureOfDay = () => {
           </>
         )}
       </form>
-      {error && <p className="text-red-500 text-center">{error}</p>}
+      {error && <p className="text-red-500 text-center mt-4">{error}</p>}
       {apodData && (
         <div className="max-w-xl mx-auto mt-8">
           {Array.isArray(apodData) ? (
@@ -115,7 +115,8 @@ const AstronomyPictureOfDay = () => {
                     alt={item.title}
                     className="mb-2 w-full rounded-lg shadow-lg"
                   />
-                  <h2 className="text-2xl font-bold mb-2">{item.title}</h2>
+                  <h2 className="text-2xl font-bold mb-4">{item.title}</h2>
+                  <p className="text-lg font-bold mb-4">{item.date}</p>
                   <p className="text-lg">{item.explanation}</p>
                 </div>
               ))}
@@ -128,6 +129,7 @@ const AstronomyPictureOfDay = () => {
                 className="mb-8 w-full rounded-lg shadow-lg"
               />
               <h2 className="text-2xl font-bold mb-4">{apodData.title}</h2>
+              <p className="text-lg font-bold mb-4">{apodData.date}</p>
               <p className="text-lg">{apodData.explanation}</p>
             </div>
           )}
