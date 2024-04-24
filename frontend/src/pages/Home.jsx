@@ -2,6 +2,7 @@ import React from "react";
 //import { useAuth } from "../context/authContext";
 import Hero from "../components/Hero/Hero";
 import Services from "../components/Services/Services";
+import AboutUs from "../components/AboutUs/AboutUs";
 
 const Home = () => {
   //const { user, isLoggedIn } = useAuth();
@@ -15,6 +16,7 @@ const Home = () => {
     <div>
       <Hero />
       <Services />
+      <AboutUs />
     </div>
   );
 };
