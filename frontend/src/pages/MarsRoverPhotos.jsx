@@ -58,7 +58,7 @@ const MarsRoverPhotos = () => {
   };
 
   return (
-    <div className="bg-gray-900 xl:pt-36 xl:pb-52 lg:px-32 lg:py:32 px-12 py-12">
+    <div className="bg-gray-900 lg:px-32 lg:py-20 px-12 py-12">
       <h1 className="text-white text-3xl mb-6">Explore Mars Rover Photos</h1>
       <p className="text-gray-300 mb-6">
         Select how you want to search for photos: by Martian sol or Earth date.
@@ -145,7 +145,7 @@ const MarsRoverPhotos = () => {
           {photos.map((photo) => (
             <div
               key={photo.id}
-              className="bg-white rounded-lg overflow-hidden shadow-md"
+              className="bg-black bg-opacity-50 rounded-lg overflow-hidden shadow-md"
             >
               <img
                 src={photo.img_src}
@@ -153,11 +153,11 @@ const MarsRoverPhotos = () => {
                 className="w-full h-auto"
               />
               <div className="p-4">
-                <p className="text-gray-800 font-semibold mb-2">
+                <p className="text-white font-semibold mb-2">
                   {photo.camera.full_name}
                 </p>
-                <p className="text-gray-600">Sol: {photo.sol}</p>
-                <p className="text-gray-600">Earth Date: {photo.earth_date}</p>
+                <p className="text-gray-300">Sol: {photo.sol}</p>
+                <p className="text-gray-300">Earth Date: {photo.earth_date}</p>
               </div>
             </div>
           ))}

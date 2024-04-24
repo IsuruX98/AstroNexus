@@ -52,13 +52,15 @@ const AstronomyPictureOfDay = () => {
 
   return (
     <div className="bg-gray-900 min-h-screen text-white py-8 px-4 md:px-8 lg:px-16 xl:px-32 relative">
-      <div className="flex justify-between items-center">
-        <h1 className="text-4xl font-bold">Astronomy Picture of the Day</h1>
+      <div className="md:flex md:justify-between md:items-center block">
+        <h1 className="text-4xl font-bold md:mb-0 mb-8">
+          Astronomy Picture of the Day
+        </h1>
         <button
           onClick={openModal}
           className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-[#4f46e5] shadow-sm transition-all duration-150 hover:bg-[#d1d5db] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
         >
-          Filter Images
+          Click here to filter images
         </button>
       </div>
 
@@ -163,15 +165,20 @@ const AstronomyPictureOfDay = () => {
           {Array.isArray(apodData) ? (
             <div>
               {apodData.map((item) => (
-                <div key={item.date} className="mb-8">
+                <div
+                  key={item.date}
+                  className="mb-8 bg-black bg-opacity-50 rounded-lg p-4 md:flex"
+                >
                   <img
                     src={item.url}
                     alt={item.title}
-                    className="mb-2 w-full rounded-lg shadow-lg"
+                    className="mb-2 md:w-1/2 rounded-lg shadow-lg"
                   />
-                  <h2 className="text-2xl font-bold mb-4">{item.title}</h2>
-                  <p className="text-lg font-bold mb-4">{item.date}</p>
-                  <p className="text-lg">{item.explanation}</p>
+                  <div className="md:w-1/2 md:ml-8">
+                    <h2 className="text-2xl font-bold mb-4">{item.title}</h2>
+                    <p className="text-lg font-bold mb-4">{item.date}</p>
+                    <p className="text-lg">{item.explanation}</p>
+                  </div>
                 </div>
               ))}
             </div>
