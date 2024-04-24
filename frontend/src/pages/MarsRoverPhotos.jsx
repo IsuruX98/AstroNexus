@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 
 const MarsRoverPhotos = () => {
   const [photos, setPhotos] = useState([]);
@@ -57,7 +58,7 @@ const MarsRoverPhotos = () => {
   };
 
   return (
-    <div className="bg-gray-900 2xl:pb-72 lg:px-32 lg:py-20 px-12 py-12">
+    <div className="bg-gray-900 xl:pt-36 xl:pb-52 lg:px-32 lg:py:32 px-12 py-12">
       <h1 className="text-white text-3xl mb-6">Explore Mars Rover Photos</h1>
       <p className="text-gray-300 mb-6">
         Select how you want to search for photos: by Martian sol or Earth date.
@@ -74,7 +75,13 @@ const MarsRoverPhotos = () => {
               id="dateType"
               value={dateType}
               onChange={handleDateTypeChange}
-              className="block w-full bg-gray-800 text-white border border-gray-700 rounded px-4 py-2 focus:outline-none focus:bg-gray-700 focus:border-gray-500"
+              className="block w-full bg-gray-800 text-white border border-gray-700 rounded px-4 py-2 focus:outline-none focus:bg-gray-700 focus:border-gray-500 appearance-none"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "right 0.7rem center",
+                backgroundSize: "1.2rem",
+              }}
             >
               <option value="sol">Query by Martian sol</option>
               <option value="earth_date">Query by Earth date</option>
@@ -101,7 +108,13 @@ const MarsRoverPhotos = () => {
             id="camera"
             value={camera}
             onChange={handleCameraChange}
-            className="block w-full bg-gray-800 text-white border border-gray-700 rounded px-4 py-2 focus:outline-none focus:bg-gray-700 focus:border-gray-500"
+            className="block w-full bg-gray-800 text-white border border-gray-700 rounded px-4 py-2 focus:outline-none focus:bg-gray-700 focus:border-gray-500 appearance-none"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "right 0.7rem center",
+              backgroundSize: "1.2rem",
+            }}
           >
             <option value="all">All Cameras</option>
             <option value="FHAZ">Front Hazard Avoidance Camera</option>
@@ -125,6 +138,7 @@ const MarsRoverPhotos = () => {
           {loading ? "Searching..." : "Search"}
         </button>
       </form>
+      {loading && <LoadingSpinner />}
       {error && <p className="text-red-500 mt-4">{error}</p>}
       {photos.length > 0 && (
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
