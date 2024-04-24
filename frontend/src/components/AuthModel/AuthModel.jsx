@@ -3,6 +3,7 @@ import { useAuth } from "../../context/authContext";
 import { AiOutlineClose } from "react-icons/ai";
 import LoginForm from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterForm/RegisterForm";
+import { useNavigate } from "react-router-dom";
 
 const AuthModal = ({ isOpen, onClose, mode }) => {
   const [isLogin, setIsLogin] = useState(mode === "login");
@@ -14,6 +15,7 @@ const AuthModal = ({ isOpen, onClose, mode }) => {
     password: "",
     confirmPassword: "",
   });
+  const navigate = useNavigate();
 
   const handleToggle = () => {
     setIsLogin(!isLogin);
@@ -30,6 +32,7 @@ const AuthModal = ({ isOpen, onClose, mode }) => {
         const response = await login(formData);
         if (response.success) {
           console.log(response);
+          onClose();
         } else {
           console.error("Login failed:", response.error);
         }
@@ -41,6 +44,7 @@ const AuthModal = ({ isOpen, onClose, mode }) => {
         const response = await register(formData);
         if (response.success) {
           console.log(response);
+          onClose();
         } else {
           console.error("Register failed:", response.error);
         }

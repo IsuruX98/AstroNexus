@@ -6,7 +6,11 @@ const protect = async (req, res, next) => {
   let token;
 
   try {
-    token = req.cookies.jwt; // Extracting JWT token from cookies
+    // Extracting JWT token from Authorization header
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      token = authHeader.split(" ")[1]; // Extracting the token part
+    }
 
     if (!token) {
       res.status(401);

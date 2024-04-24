@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import axios from "../api/axios";
 import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode"; // Corrected import statement
 
 // Create the AuthContext
 const AuthContext = createContext();
@@ -14,6 +14,17 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Function to fetch user profile by ID
+  const fetchUserById = async (userId) => {
+    try {
+      const response = await axios.get(`user/profile/${userId}`);
+      const userData = response.data; // Assuming the response contains user data
+      setUser(userData); // Update the user state with the fetched user data
+    } catch (error) {
+      console.error("Error fetching user profile:", error.response.data);
+    }
+  };
 
   useEffect(() => {
     // Check if user is logged in based on the presence of JWT token in the cookie
@@ -44,8 +55,12 @@ export const AuthProvider = ({ children }) => {
       // Update isLoggedIn state
       setIsLoggedIn(true);
 
-      // Update user state
-      setUser(response.data.user);
+      // Extract user data without the token
+      const { token, ...userData } = response.data;
+
+      // Update user state with user data excluding the token
+      setUser(userData);
+
       return { success: true, data: response.data };
     } catch (error) {
       console.error("Error logging in:", error.response.data);
@@ -67,8 +82,11 @@ export const AuthProvider = ({ children }) => {
       // Update isLoggedIn state
       setIsLoggedIn(true);
 
-      // Update user state
-      setUser(response.data.user);
+      // Extract user data without the token
+      const { token, ...userData } = response.data;
+
+      // Update user state with user data excluding the token
+      setUser(userData);
       return { success: true, data: response.data };
     } catch (error) {
       console.error("Error registering user:", error.response.data);
@@ -83,17 +101,6 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     // Remove JWT token from cookie
     Cookies.remove("jwt");
-  };
-
-  // Function to fetch user profile by ID
-  const fetchUserById = async (userId) => {
-    try {
-      const response = await axios.get(`user/profile/${userId}`);
-      const userData = response.data; // Assuming the response contains user data
-      setUser(userData); // Update the user state with the fetched user data
-    } catch (error) {
-      console.error("Error fetching user profile:", error.response.data);
-    }
   };
 
   return (

@@ -1,21 +1,22 @@
 import React, { useState } from "react";
-import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineMenu, AiOutlineUser } from "react-icons/ai";
 import AuthModal from "../AuthModel/AuthModel";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/authContext";
+import UserProfileModal from "../UserProfileModal/UserProfileModal";
 
 const Navbar = () => {
+  const { user, logout } = useAuth();
   const [nav, setNav] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  console.log("user", user);
 
   const handleNav = () => {
     setNav(!nav);
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
   };
 
   const handleLoginModal = () => {
@@ -31,6 +32,7 @@ const Navbar = () => {
   const handleCloseModal = () => {
     setShowLogin(false);
     setShowRegister(false);
+    setShowProfileModal(false);
   };
 
   return (
@@ -111,20 +113,32 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Auth Links */}
+      {/* Auth Links or User Profile Button */}
       <div className="items-center hidden gap-8 lg:flex text-white">
-        <button
-          onClick={handleLoginModal}
-          className="flex items-center justify-center text-white"
-        >
-          Sign In
-        </button>
-        <button
-          onClick={handleRegisterModal}
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-[#4f46e5] shadow-sm transition-all duration-150 hover:bg-[#d1d5db] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-        >
-          Sign Up for Free
-        </button>
+        {user ? (
+          <button
+            onClick={() => setShowProfileModal(true)}
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-[#4f46e5] shadow-sm transition-all duration-150 hover:bg-[#d1d5db] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+          >
+            <AiOutlineUser />
+            {user.name}
+          </button>
+        ) : (
+          <>
+            <button
+              onClick={handleLoginModal}
+              className="flex items-center justify-center text-white"
+            >
+              Sign In
+            </button>
+            <button
+              onClick={handleRegisterModal}
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-[#4f46e5] shadow-sm transition-all duration-150 hover:bg-[#d1d5db] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            >
+              Sign Up for Free
+            </button>
+          </>
+        )}
       </div>
 
       {/* Login Modal */}
@@ -136,6 +150,15 @@ const Navbar = () => {
         onClose={handleCloseModal}
         mode="register"
       />
+
+      {/* User Profile Modal */}
+      {showProfileModal && (
+        <UserProfileModal
+          user={user}
+          onClose={handleCloseModal}
+          logout={logout}
+        />
+      )}
 
       {/* Mobile Navigation */}
       <div
