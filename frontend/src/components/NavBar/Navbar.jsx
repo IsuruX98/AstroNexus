@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { Link } from "react-scroll";
 import AuthModal from "../AuthModel/AuthModel";
+import { Link } from "react-scroll";
+//import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -10,9 +11,17 @@ const Navbar = () => {
   const [showRegister, setShowRegister] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  //const navigate = useNavigate();
+
   const handleNav = () => {
     setNav(!nav);
   };
+
+  // const goToPage = (page) => {
+  //   setNav(false);
+
+  //   navigate(page);
+  // };
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -37,14 +46,16 @@ const Navbar = () => {
     <nav className="flex justify-between w-full py-4 lg:px-32 px-12 sticky top-0 z-[999] bg-gradient-to-r from-gray-900 to-sky-500">
       {/* Logo */}
       <div className="cursor-pointer lg:hidden">
-        <h1 className="text-2xl font-bold text-white">AstroNexus</h1>
+        <Link to="/" className="text-2xl font-bold text-white">
+          AstroNexus
+        </Link>
       </div>
 
       {/* Main Navigation Links */}
       <div className="items-center hidden space-x-12 lg:flex text-white">
         <div className="flex items-center text-white">
           <h3 className="font-extrabold text-white">
-            <Link to="home" spy={true} smooth={true} duration={500}>
+            <Link to="/" spy={true} smooth={true} duration={500}>
               <div className="cursor-pointer text-2xl">AstroNexus</div>
             </Link>
           </h3>
@@ -80,11 +91,11 @@ const Navbar = () => {
             >
               <div className="py-1" role="none">
                 <Link
-                  to="Education"
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                  onClick={() => setDropdownOpen(false)}
+                  to="/apd"
+                  onClick={() => {
+                    setDropdownOpen(false);
+                    // goToPage("apd");
+                  }}
                   className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 hover:text-gray-900"
                   role="menuitem"
                 >
@@ -92,9 +103,6 @@ const Navbar = () => {
                 </Link>
                 <Link
                   to="Skills"
-                  spy={true}
-                  smooth={true}
-                  duration={500}
                   onClick={() => setDropdownOpen(false)}
                   className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 hover:text-gray-900"
                   role="menuitem"
@@ -103,9 +111,6 @@ const Navbar = () => {
                 </Link>
                 <Link
                   to="Skills"
-                  spy={true}
-                  smooth={true}
-                  duration={500}
                   onClick={() => setDropdownOpen(false)}
                   className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 hover:text-gray-900"
                   role="menuitem"
@@ -183,9 +188,6 @@ const Navbar = () => {
               onClick={() => {
                 setNav(false);
               }}
-              spy={true}
-              smooth={true}
-              duration={500}
             >
               <div className="cursor-pointer">Astronomy Picture of the Day</div>
             </Link>
@@ -196,9 +198,6 @@ const Navbar = () => {
               onClick={() => {
                 setNav(false);
               }}
-              spy={true}
-              smooth={true}
-              duration={500}
             >
               <div className="cursor-pointer">Mars Rover Photos</div>
             </Link>
@@ -209,9 +208,6 @@ const Navbar = () => {
               onClick={() => {
                 setNav(false);
               }}
-              spy={true}
-              smooth={true}
-              duration={500}
             >
               <div className="cursor-pointer">Earth imagery API</div>
             </Link>
