@@ -1,21 +1,16 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-} from "react-router-dom"; // Import useNavigate
+import { Routes, Route } from "react-router-dom"; // Import useNavigate
 import Home from "../pages/Home";
 import AstronomyPictureOfDay from "../pages/AstronomyPictureOfDay";
+import MarsRoverPhotos from "../pages/MarsRoverPhotos";
 
 const AppRouter = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/apd" element={<AstronomyPictureOfDay />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/apd" element={<AstronomyPictureOfDay />} />
+      <Route path="/mrp" element={<MarsRoverPhotos />} />
+    </Routes>
   );
 };
 

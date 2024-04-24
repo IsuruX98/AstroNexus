@@ -1,10 +1,16 @@
 import React from "react";
 import Layout from "./layout/Layout";
+import { AuthProvider } from "./context/authContext";
+import { BrowserRouter } from "react-router-dom";
 
 const App = () => {
   return (
     <div>
-      <Layout />
+      <BrowserRouter>
+        <AuthProvider>
+          <Layout />
+        </AuthProvider>
+      </BrowserRouter>
     </div>
   );
 };
