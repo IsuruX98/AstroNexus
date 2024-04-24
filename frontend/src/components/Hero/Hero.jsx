@@ -1,4 +1,5 @@
 import React from "react";
+import { Link as Scroll } from "react-scroll";
 
 const Hero = () => {
   return (
@@ -56,13 +57,15 @@ const Hero = () => {
             APIs and a world of astronomical data.
           </p>
           <div className="mt-5 flex items-center justify-center gap-x-6">
-            <a
-              href="/register"
+            <Scroll
+              to="Services"
+              spy={true}
+              smooth={true}
+              duration={500}
               className="rounded-md bg-sky-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
-              rel="noreferrer"
             >
               Try Now →
-            </a>
+            </Scroll>
           </div>
         </div>
       </div>
