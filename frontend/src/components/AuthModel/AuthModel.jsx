@@ -3,7 +3,7 @@ import { useAuth } from "../../context/authContext";
 import { AiOutlineClose } from "react-icons/ai";
 import LoginForm from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterForm/RegisterForm";
-import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import {
   SuccessNotification,
   ErrorNotification,

@@ -5,12 +5,14 @@ import {
   SuccessNotification,
   ErrorNotification,
 } from "../../notifications/notifications";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 const UserProfileModal = ({ user, onClose, logout }) => {
   const [editable, setEditable] = useState(false);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [mobile, setMobile] = useState(user.mobile);
+  const [loading, setLoading] = useState(false);
 
   // State variables for error messages
   const [nameError, setNameError] = useState("");
@@ -22,6 +24,8 @@ const UserProfileModal = ({ user, onClose, logout }) => {
     if (!validateFields()) {
       return;
     }
+
+    setLoading(true);
 
     try {
       const response = await axios.put(`user/profile/${user._id}`, {
@@ -37,10 +41,14 @@ const UserProfileModal = ({ user, onClose, logout }) => {
     } catch (error) {
       console.error("Error updating user:", error.response.data);
       ErrorNotification("Error updating user");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleLogout = async () => {
+    setLoading(true);
+
     try {
       logout();
       SuccessNotification("Logout successful");
@@ -48,6 +56,8 @@ const UserProfileModal = ({ user, onClose, logout }) => {
     } catch (error) {
       console.error("Error logging out:", error.response.data);
       ErrorNotification("Error logging out");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -156,7 +166,7 @@ const UserProfileModal = ({ user, onClose, logout }) => {
                   onClick={handleUpdate}
                   className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-[#4f46e5] shadow-sm transition-all duration-150 hover:bg-[#d1d5db] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                 >
-                  Submit Update
+                  {loading ? <LoadingSpinner /> : "Submit Update"}
                 </button>
               )}
               <button
