@@ -39,8 +39,7 @@ const AuthModal = ({ isOpen, onClose, mode }) => {
           ErrorNotification(response.error);
         }
       } else {
-        if (formData.password !== formData.confirmPassword) {
-          ErrorNotification("Passwords do not match");
+        if (!validateFormData()) {
           return;
         }
         const response = await register(formData);
@@ -54,6 +53,50 @@ const AuthModal = ({ isOpen, onClose, mode }) => {
     } catch (error) {
       console.error("Error:", error.response ? error.response.data : error);
     }
+  };
+
+  const validateFormData = () => {
+    const { name, email, mobile, password, confirmPassword } = formData;
+
+    if (!isLogin && password !== confirmPassword) {
+      ErrorNotification("Passwords do not match");
+      return false;
+    }
+
+    if (!name.trim()) {
+      ErrorNotification("Name is required");
+      return false;
+    }
+
+    if (!email.trim()) {
+      ErrorNotification("Email is required");
+      return false;
+    } else if (!isValidEmail(email)) {
+      ErrorNotification("Invalid email address");
+      return false;
+    }
+
+    if (!mobile.trim()) {
+      ErrorNotification("Mobile is required");
+      return false;
+    } else if (!isValidMobile(mobile)) {
+      ErrorNotification("Invalid mobile number");
+      return false;
+    }
+
+    return true;
+  };
+
+  const isValidEmail = (email) => {
+    // Basic email format validation using regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isValidMobile = (mobile) => {
+    // Basic mobile number validation (10 digits)
+    const mobileRegex = /^\d{10}$/;
+    return mobileRegex.test(mobile);
   };
 
   return (

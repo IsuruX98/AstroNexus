@@ -1,53 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
-const LoginForm = ({ onSubmit }) => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [errors, setErrors] = useState({ email: "", password: "" });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      onSubmit(formData);
-    }
-  };
-
-  const validateForm = () => {
-    let valid = true;
-    const newErrors = { email: "", password: "" };
-
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-      valid = false;
-    } else if (!isValidEmail(formData.email)) {
-      newErrors.email = "Invalid email address";
-      valid = false;
-    }
-
-    if (!formData.password.trim()) {
-      newErrors.password = "Password is required";
-      valid = false;
-    }
-
-    setErrors(newErrors);
-    return valid;
-  };
-
-  const isValidEmail = (email) => {
-    // Basic email format validation using regex
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
+const LoginForm = ({ onSubmit, formData, onChange }) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <div className="mb-4">
         <label htmlFor="email" className="block text-sm font-medium text-white">
           Email:
@@ -57,12 +12,9 @@ const LoginForm = ({ onSubmit }) => {
           id="email"
           name="email"
           value={formData.email}
-          onChange={handleChange}
-          className={`w-full px-3 py-2 border rounded-md bg-gray-800 text-white ${
-            errors.email && "border-red-500"
-          }`}
+          onChange={onChange}
+          className="w-full px-3 py-2 border rounded-md bg-gray-800 text-white"
         />
-        {errors.email && <p className="text-red-500">{errors.email}</p>}
       </div>
       <div className="mb-4">
         <label
@@ -76,12 +28,9 @@ const LoginForm = ({ onSubmit }) => {
           id="password"
           name="password"
           value={formData.password}
-          onChange={handleChange}
-          className={`w-full px-3 py-2 border rounded-md bg-gray-800 text-white ${
-            errors.password && "border-red-500"
-          }`}
+          onChange={onChange}
+          className="w-full px-3 py-2 border rounded-md bg-gray-800 text-white"
         />
-        {errors.password && <p className="text-red-500">{errors.password}</p>}
       </div>
       <button
         type="submit"
