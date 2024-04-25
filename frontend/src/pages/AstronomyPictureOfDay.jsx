@@ -70,7 +70,7 @@ const AstronomyPictureOfDay = () => {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen text-white py-8 px-4 md:px-8 lg:px-16 xl:px-32 relative">
+    <div className="bg-gray-900 min-h-screen text-white py-12 px-12 md:px-8 lg:px-16 xl:px-32 relative">
       <div className="md:flex md:justify-between md:items-center block mb-8">
         <h1 className="text-4xl font-bold md:mb-0 mb-8">
           Astronomy Picture of the Day

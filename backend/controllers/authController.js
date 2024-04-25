@@ -13,7 +13,6 @@ const authUser = async (req, res, next) => {
     if (user && (await user.matchPassword(password))) {
       // Generating token for authenticated user
       const token = generateToken(res, user._id);
-      console.log(token);
 
       // Sending user information in response
       res.status(200).json({

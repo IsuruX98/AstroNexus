@@ -71,7 +71,7 @@ const MarsRoverPhotos = () => {
   };
 
   return (
-    <div className="bg-gray-900 lg:px-32 lg:py-20 px-12 py-12">
+    <div className="bg-gray-900 min-h-screen text-white py-12 px-12 md:px-8 lg:px-16 xl:px-32">
       <h1 className="text-white font-bold text-4xl mb-6">
         Explore Mars Rover Photos
       </h1>
