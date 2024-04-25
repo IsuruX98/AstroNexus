@@ -30,7 +30,8 @@ const UserProfileModal = ({ user, onClose, logout }) => {
         mobile,
       });
       console.log("User updated successfully:", response.data);
-      SuccessNotification("User updated successfully");
+      SuccessNotification("User updated successfully, Please login back.");
+      logout();
       setEditable(false);
       onClose();
     } catch (error) {
