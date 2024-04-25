@@ -174,13 +174,13 @@ const Navbar = () => {
       <div
         className={
           !nav
-            ? "fixed left-[-100%] top-0 w-[60%] h-full   bg-gray-900 ease-in-out duration-500 lg:hidden"
-            : "fixed left-0 top-0 w-[60%] h-full   ease-in-out bg-gray-900 duration-500 lg:hidden"
+            ? "fixed left-[-100%] top-0 w-[60%] h-full bg-gray-900 ease-in-out duration-500 lg:hidden"
+            : "fixed left-0 top-0 w-[60%] h-full ease-in-out bg-gray-900 duration-500 lg:hidden"
         }
       >
         <h1 className="font-bold m-8 text-white">
           <Link
-            to="home"
+            to="/"
             onClick={() => {
               setNav(false);
             }}
@@ -193,7 +193,7 @@ const Navbar = () => {
         </h1>
         <ul className="p-4 mt-20 text-white">
           {/* Render the same navigation links as in large screen */}
-          <li className="p-4 border-b border-white hover:text-lg hover:font-bold">
+          <li className="p-4 hover:bg-gray-800 hover:text-sky-500">
             <Link
               to="/apd"
               onClick={() => {
@@ -203,7 +203,7 @@ const Navbar = () => {
               <div className="cursor-pointer">Astronomy Picture of the Day</div>
             </Link>
           </li>
-          <li className="p-4 border-b border-white hover:text-lg hover:font-bold">
+          <li className="p-4 hover:bg-gray-800 hover:text-sky-500">
             <Link
               to="/mrp"
               onClick={() => {
@@ -213,7 +213,7 @@ const Navbar = () => {
               <div className="cursor-pointer">Mars Rover Photos</div>
             </Link>
           </li>
-          <li className="p-4 border-b border-white hover:text-lg hover:font-bold">
+          <li className="p-4 hover:bg-gray-800 hover:text-sky-500">
             <Link
               to="/epic"
               onClick={() => {
@@ -227,6 +227,33 @@ const Navbar = () => {
           </li>
           {/* Add any additional links here */}
         </ul>
+        {/* Sign In and Sign Up buttons */}
+        <div className="flex flex-col mx-5">
+          {user ? (
+            <button
+              onClick={() => setShowProfileModal(true)}
+              className="inline-flex mt-8 items-center justify-center gap-2 rounded-md bg-white px-4 py-2 text-sm font-semibold text-[#4f46e5] shadow-sm transition-all duration-150 hover:bg-[#d1d5db] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            >
+              <AiOutlineUser />
+              {user.name}
+            </button>
+          ) : (
+            <>
+              <button
+                onClick={handleLoginModal}
+                className="text-white mt-4 py-2 px-4 border border-transparent rounded-md text-sm font-medium bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+              >
+                Sign In
+              </button>
+              <button
+                onClick={handleRegisterModal}
+                className="text-white mt-4 py-2 px-4 border border-transparent rounded-md text-sm font-medium bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+              >
+                Sign Up for Free
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </nav>
   );
