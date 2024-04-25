@@ -50,7 +50,7 @@ const FeaturedServices = () => {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => (
             <Link to={service.route} key={index}>
-              <div className="bg-gray-800 p-6 rounded-lg shadow-md transition duration-300 hover:shadow-lg hover:ring-2 hover:ring-sky-500 cursor-pointer">
+              <div className="bg-gray-800 p-6 rounded-lg shadow-md transition duration-300 hover:shadow-lg hover:ring-2 hover:ring-sky-500 cursor-pointer h-full">
                 <img
                   src={service.imageUrl}
                   alt={service.alt}
