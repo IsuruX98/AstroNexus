@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import apd from "../../assets/images/apd.webp";
+import epic from "../../assets/images/epic.webp";
+import mrp from "../../assets/images/mrp.webp";
 
 const services = [
   {
     title: "Mars Rover Photos",
     description:
       "Explore the latest photos captured by Mars rovers and uncover the mysteries of the Red Planet.",
-    imageUrl:
-      "https://scitechdaily.com/images/NASA-Curiosity-Mars-Rover-Art.jpg",
+    imageUrl: mrp,
     alt: "Mars Rover Photos",
     route: "/mrp",
   },
@@ -15,8 +17,7 @@ const services = [
     title: "Astronomy Picture of the Day",
     description:
       "Discover stunning images of our universe curated by NASA every day.",
-    imageUrl:
-      "https://c02.purpledshub.com/uploads/sites/41/2021/01/astronomy-beginners-uk-7f589e4.jpg",
+    imageUrl: apd,
     alt: "Astronomy Picture of the Day",
     route: "/apd",
   },
@@ -24,8 +25,7 @@ const services = [
     title: "Earth Polychromatic Imaging Camera",
     description:
       "Access satellite imagery of Earth from NASA's EPIC for various applications and research purposes.",
-    imageUrl:
-      "https://cff2.earth.com/uploads/2022/05/05083713/Poverty4-scaled.jpg",
+    imageUrl: epic,
     alt: "Earth Polychromatic Imaging Camera",
     route: "/epic",
   },
