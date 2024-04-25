@@ -102,7 +102,9 @@ const UserProfileModal = ({ user, onClose, logout }) => {
               <input
                 type="text"
                 id="name"
-                className="rounded-md p-2 w-full bg-gray-800 text-white"
+                className={`rounded-md p-2 w-full ${
+                  editable ? "ring-2 ring-white" : "ring-gray-800"
+                } text-white bg-gray-800`}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 disabled={!editable}
@@ -116,7 +118,9 @@ const UserProfileModal = ({ user, onClose, logout }) => {
               <input
                 type="email"
                 id="email"
-                className="rounded-md p-2 w-full bg-gray-800 text-white"
+                className={`rounded-md p-2 w-full ${
+                  editable ? "ring-2 ring-white" : "ring-gray-800"
+                } text-white bg-gray-800`}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={!editable}
@@ -130,14 +134,16 @@ const UserProfileModal = ({ user, onClose, logout }) => {
               <input
                 type="text"
                 id="mobile"
-                className="rounded-md p-2 w-full bg-gray-800 text-white"
+                className={`rounded-md p-2 w-full ${
+                  editable ? "ring-2 ring-white" : "ring-gray-800"
+                } text-white bg-gray-800`}
                 value={mobile}
                 onChange={(e) => setMobile(e.target.value)}
                 disabled={!editable}
               />
               {mobileError && <p className="text-red-500">{mobileError}</p>}
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between mt-5">
               {!editable ? (
                 <button
                   onClick={() => setEditable(true)}
@@ -155,7 +161,7 @@ const UserProfileModal = ({ user, onClose, logout }) => {
               )}
               <button
                 onClick={handleLogout}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-[#4f46e5] shadow-sm transition-all duration-150 hover:bg-[#d1d5db] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-red-500 shadow-sm transition-all duration-150 hover:bg-[#d1d5db] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
               >
                 Logout
               </button>
