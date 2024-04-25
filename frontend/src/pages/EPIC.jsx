@@ -3,14 +3,13 @@ import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
-import {
-  SuccessNotification,
-  ErrorNotification,
-} from "../notifications/notifications";
+import { ErrorNotification } from "../notifications/notifications";
+import EPICModal from "../components/Models/EPICModal/EPICModal";
+import EPICImage from "../components/EPICImage/EPICImage";
 
 const EPIC = () => {
   const navigate = useNavigate();
-  const { user, isLoggedIn } = useAuth();
+  const { user } = useAuth();
   const [date, setDate] = useState("");
   const [imageData, setImageData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -24,7 +23,7 @@ const EPIC = () => {
     }
   }, []);
 
-  const API_KEY = "yzm8fkqDoiRhP8zP2neQ1FxtMPyASrB5WggSObDI"; // Replace with your API key
+  const API_KEY = "yzm8fkqDoiRhP8zP2neQ1FxtMPyASrB5WggSObDI";
 
   const fetchImageData = async () => {
     setLoading(true);
@@ -68,50 +67,13 @@ const EPIC = () => {
       </div>
 
       {modalOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-80 flex justify-center items-center z-20">
-          <div className="bg-gray-800 rounded-lg p-8 relative">
-            <button
-              onClick={closeModal}
-              className="absolute top-2 right-2 text-gray-400 hover:text-gray-200 focus:outline-none"
-            >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-            <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
-              <label htmlFor="date" className="block mb-2 text-lg text-white">
-                Select a Date:
-              </label>
-              <input
-                id="date"
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="border rounded-md px-4 py-2 w-full bg-gray-800 text-white focus:outline-none focus:border-blue-500"
-              />
-              <button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4"
-                disabled={loading}
-              >
-                {loading ? "Loading..." : "Search"}
-              </button>
-              <p className="mt-3">
-                TIP: The first acquired images start on 2015-09-01
-              </p>
-            </form>
-          </div>
-        </div>
+        <EPICModal
+          closeModal={closeModal}
+          handleSubmit={handleSubmit}
+          date={date}
+          setDate={setDate}
+          loading={loading}
+        />
       )}
 
       <p className="text-gray-400 text-lg mb-8">
@@ -138,51 +100,9 @@ const EPIC = () => {
       )}
       {imageData && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {imageData.map((image) => {
-            const imageUrl = `https://epic.gsfc.nasa.gov/archive/natural/${date.replace(
-              /-/g,
-              "/"
-            )}/jpg/${image.image}.jpg`;
-            return (
-              <div
-                key={image.identifier}
-                className="bg-black bg-opacity-50 rounded-lg overflow-hidden shadow-md"
-              >
-                <img src={imageUrl} alt={image.caption} className="w-full" />
-                <div className="p-4">
-                  <p className="text-xl font-semibold mb-2 text-white">
-                    Date: {image.date}
-                  </p>
-                  <p className="text-gray-300">
-                    Coordinates: {image.coords.centroid_coordinates.lat},{" "}
-                    {image.coords.centroid_coordinates.lon}
-                  </p>
-                  <p className="text-gray-300">
-                    Sun Position: X: {image.coords.sun_j2000_position.x}, Y:{" "}
-                    {image.coords.sun_j2000_position.y}, Z:{" "}
-                    {image.coords.sun_j2000_position.z}
-                  </p>
-                  <p className="text-gray-300">
-                    Lunar Position: X: {image.coords.lunar_j2000_position.x}, Y:{" "}
-                    {image.coords.lunar_j2000_position.y}, Z:{" "}
-                    {image.coords.lunar_j2000_position.z}
-                  </p>
-                  <p className="text-gray-300">
-                    DSCOVR Position: X: {image.coords.dscovr_j2000_position.x},
-                    Y: {image.coords.dscovr_j2000_position.y}, Z:{" "}
-                    {image.coords.dscovr_j2000_position.z}
-                  </p>
-                  <p className="text-gray-300">
-                    Attitude Quaternions: Q0:{" "}
-                    {image.coords.attitude_quaternions.q0}, Q1:{" "}
-                    {image.coords.attitude_quaternions.q1}, Q2:{" "}
-                    {image.coords.attitude_quaternions.q2}, Q3:{" "}
-                    {image.coords.attitude_quaternions.q3}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+          {imageData.map((image) => (
+            <EPICImage key={image.identifier} image={image} date={date} />
+          ))}
         </div>
       )}
     </div>
