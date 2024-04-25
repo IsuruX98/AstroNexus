@@ -3,14 +3,12 @@ import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
-import {
-  SuccessNotification,
-  ErrorNotification,
-} from "../notifications/notifications";
+import { ErrorNotification } from "../notifications/notifications";
+import MarsRoverPhotoCard from "../components/MarsRoverPhotoCard/MarsRoverPhotoCard";
 
 const MarsRoverPhotos = () => {
   const navigate = useNavigate();
-  const { user, isLoggedIn } = useAuth();
+  const { user } = useAuth();
   const [photos, setPhotos] = useState([]);
   const [dateType, setDateType] = useState("sol");
   const [dateValue, setDateValue] = useState("");
@@ -174,23 +172,7 @@ const MarsRoverPhotos = () => {
       {photos.length > 0 && (
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {photos.map((photo) => (
-            <div
-              key={photo.id}
-              className="bg-black bg-opacity-50 rounded-lg overflow-hidden shadow-md"
-            >
-              <img
-                src={photo.img_src}
-                alt="Mars Rover"
-                className="w-full h-auto"
-              />
-              <div className="p-4">
-                <p className="text-white font-semibold mb-2">
-                  {photo.camera.full_name}
-                </p>
-                <p className="text-gray-300">Sol: {photo.sol}</p>
-                <p className="text-gray-300">Earth Date: {photo.earth_date}</p>
-              </div>
-            </div>
+            <MarsRoverPhotoCard key={photo.id} photo={photo} />
           ))}
         </div>
       )}
