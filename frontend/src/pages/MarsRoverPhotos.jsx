@@ -19,7 +19,7 @@ const MarsRoverPhotos = () => {
   useEffect(() => {
     if (!user) {
       navigate("/");
-      ErrorNotification("log in please !!!");
+      ErrorNotification("Please log in to access Mars Rover photos.");
     }
   }, []);
 

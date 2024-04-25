@@ -19,7 +19,9 @@ const EPIC = () => {
   useEffect(() => {
     if (!user) {
       navigate("/");
-      ErrorNotification("log in please !!!");
+      ErrorNotification(
+        "Please log in to access Earth Polychromatic Imaging Camera Images."
+      );
     }
   }, []);
 
