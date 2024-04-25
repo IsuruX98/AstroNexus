@@ -25,14 +25,12 @@ const EPIC = () => {
     }
   }, []);
 
-  const API_KEY = "yzm8fkqDoiRhP8zP2neQ1FxtMPyASrB5WggSObDI";
-
   const fetchImageData = async () => {
     setLoading(true);
     setError("");
     try {
       const response = await axios.get(
-        `https://api.nasa.gov/EPIC/api/natural/date/${date}?api_key=${API_KEY}`
+        `https://api.nasa.gov/EPIC/api/natural/date/${date}?api_key=${process.env.REACT_APP_NASA_API_KEY}`
       );
       setImageData(response.data);
     } catch (error) {

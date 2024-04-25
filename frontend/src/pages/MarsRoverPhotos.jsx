@@ -23,17 +23,15 @@ const MarsRoverPhotos = () => {
     }
   }, []);
 
-  const API_KEY = "yzm8fkqDoiRhP8zP2neQ1FxtMPyASrB5WggSObDI";
-
   const fetchPhotos = async () => {
     setLoading(true);
     setError("");
     try {
       let url;
       if (dateType === "sol") {
-        url = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${dateValue}&api_key=${API_KEY}`;
+        url = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${dateValue}&api_key=${process.env.REACT_APP_NASA_API_KEY}`;
       } else {
-        url = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=${dateValue}&api_key=${API_KEY}`;
+        url = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=${dateValue}&api_key=${process.env.REACT_APP_NASA_API_KEY}`;
       }
       if (camera !== "all") {
         url += `&camera=${camera}`;

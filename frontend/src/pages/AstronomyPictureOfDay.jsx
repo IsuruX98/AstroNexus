@@ -33,7 +33,7 @@ const AstronomyPictureOfDay = () => {
   const fetchAPOD = async () => {
     setLoading(true);
     try {
-      let url = `https://api.nasa.gov/planetary/apod?api_key=yzm8fkqDoiRhP8zP2neQ1FxtMPyASrB5WggSObDI`;
+      let url = `https://api.nasa.gov/planetary/apod?api_key=${process.env.REACT_APP_NASA_API_KEY}`;
 
       if (dateMode === "single" && startDate) {
         url += `&date=${startDate}`;
