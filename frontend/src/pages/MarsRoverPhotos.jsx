@@ -1,14 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
+import { useAuth } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
+import {
+  SuccessNotification,
+  ErrorNotification,
+} from "../notifications/notifications";
 
 const MarsRoverPhotos = () => {
+  const navigate = useNavigate();
+  const { user, isLoggedIn } = useAuth();
   const [photos, setPhotos] = useState([]);
   const [dateType, setDateType] = useState("sol");
   const [dateValue, setDateValue] = useState("");
   const [camera, setCamera] = useState("all");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+      ErrorNotification("log in please !!!");
+    }
+  }, []);
 
   const API_KEY = "yzm8fkqDoiRhP8zP2neQ1FxtMPyASrB5WggSObDI";
 

@@ -55,16 +55,12 @@ export const AuthProvider = ({ children }) => {
       // Update isLoggedIn state
       setIsLoggedIn(true);
 
-      // Extract user data without the token
-      const { token, ...userData } = response.data;
-
-      // Update user state with user data excluding the token
-      setUser(userData);
+      // Update user state
+      setUser(response.data.user);
 
       return { success: true, data: response.data };
     } catch (error) {
-      console.error("Error logging in:", error.response.data);
-      return { success: false, error: error.response.data };
+      return { success: false, error: error.response.data.error };
     }
   };
 
@@ -82,15 +78,12 @@ export const AuthProvider = ({ children }) => {
       // Update isLoggedIn state
       setIsLoggedIn(true);
 
-      // Extract user data without the token
-      const { token, ...userData } = response.data;
+      // Update user state
+      setUser(response.data.user);
 
-      // Update user state with user data excluding the token
-      setUser(userData);
       return { success: true, data: response.data };
     } catch (error) {
-      console.error("Error registering user:", error.response.data);
-      return { success: false, error: error.response.data };
+      return { success: false, error: error.response.data.error };
     }
   };
 
@@ -101,6 +94,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     // Remove JWT token from cookie
     Cookies.remove("jwt");
+    return { success: true, message: "logout successfully" };
   };
 
   return (

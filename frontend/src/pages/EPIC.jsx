@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
+import { useAuth } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
+import {
+  SuccessNotification,
+  ErrorNotification,
+} from "../notifications/notifications";
 
 const EPIC = () => {
+  const navigate = useNavigate();
+  const { user, isLoggedIn } = useAuth();
   const [date, setDate] = useState("");
   const [imageData, setImageData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+      ErrorNotification("log in please !!!");
+    }
+  }, []);
 
   const API_KEY = "yzm8fkqDoiRhP8zP2neQ1FxtMPyASrB5WggSObDI"; // Replace with your API key
 

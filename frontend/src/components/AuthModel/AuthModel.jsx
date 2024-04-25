@@ -3,7 +3,10 @@ import { useAuth } from "../../context/authContext";
 import { AiOutlineClose } from "react-icons/ai";
 import LoginForm from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterForm/RegisterForm";
-import { useNavigate } from "react-router-dom";
+import {
+  SuccessNotification,
+  ErrorNotification,
+} from "../../notifications/notifications";
 
 const AuthModal = ({ isOpen, onClose, mode }) => {
   const [isLogin, setIsLogin] = useState(mode === "login");
@@ -15,7 +18,6 @@ const AuthModal = ({ isOpen, onClose, mode }) => {
     password: "",
     confirmPassword: "",
   });
-  const navigate = useNavigate();
 
   const handleToggle = () => {
     setIsLogin(!isLogin);
@@ -31,22 +33,22 @@ const AuthModal = ({ isOpen, onClose, mode }) => {
       if (isLogin) {
         const response = await login(formData);
         if (response.success) {
-          console.log(response);
+          SuccessNotification("Logged in successfully");
           onClose();
         } else {
-          console.error("Login failed:", response.error);
+          ErrorNotification(response.error);
         }
       } else {
         if (formData.password !== formData.confirmPassword) {
-          console.error("Passwords do not match");
+          ErrorNotification("Passwords do not match");
           return;
         }
         const response = await register(formData);
         if (response.success) {
-          console.log(response);
+          SuccessNotification("Registered successfully");
           onClose();
         } else {
-          console.error("Register failed:", response.error);
+          ErrorNotification(response.error);
         }
       }
     } catch (error) {

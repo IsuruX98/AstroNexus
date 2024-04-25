@@ -17,16 +17,18 @@ const authUser = async (req, res, next) => {
 
       // Sending user information in response
       res.status(200).json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        mobile: user.mobile,
-        role: user.role,
+        message: "Login successful",
+        user: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          mobile: user.mobile,
+          role: user.role,
+        },
         token: token,
       });
     } else {
-      res.status(401);
-      throw new Error("Invalid email or password");
+      res.status(401).json({ error: "Invalid email or password" });
     }
   } catch (error) {
     next(error);
@@ -40,7 +42,7 @@ const registerUser = async (req, res, next) => {
 
     const userExists = await User.findOne({ email }); // Checking if user already exists
     if (userExists) {
-      res.status(400);
+      res.status(400).json({ error: "User already exists" });
       throw new Error("User already exists");
     }
 
@@ -57,14 +59,18 @@ const registerUser = async (req, res, next) => {
 
       // Sending user information in response
       res.status(201).json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
+        message: "Registration successful",
+        user: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          mobile: user.mobile,
+          role: user.role,
+        },
         token: token,
       });
     } else {
-      res.status(400);
+      res.status(400).json({ error: "Invalid user data" });
       throw new Error("Invalid user data");
     }
   } catch (error) {
@@ -75,7 +81,7 @@ const registerUser = async (req, res, next) => {
 // Middleware for logging out user
 const logoutUser = async (req, res) => {
   res.clearCookie("jwt"); // Clearing JWT cookie
-  res.status(200).json({ message: "User logged out" });
+  res.status(200).json({ message: "logout successfully" });
 };
 
 module.exports = {

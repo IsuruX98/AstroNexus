@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import axios from "../../api/axios";
+import {
+  SuccessNotification,
+  ErrorNotification,
+} from "../../notifications/notifications";
 
 const UserProfileModal = ({ user, onClose, logout }) => {
   const [editable, setEditable] = useState(false);
@@ -8,7 +12,17 @@ const UserProfileModal = ({ user, onClose, logout }) => {
   const [email, setEmail] = useState(user.email);
   const [mobile, setMobile] = useState(user.mobile);
 
+  // State variables for error messages
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [mobileError, setMobileError] = useState("");
+
   const handleUpdate = async () => {
+    // Validate fields before updating
+    if (!validateFields()) {
+      return;
+    }
+
     try {
       const response = await axios.put(`user/profile/${user._id}`, {
         name,
@@ -16,20 +30,57 @@ const UserProfileModal = ({ user, onClose, logout }) => {
         mobile,
       });
       console.log("User updated successfully:", response.data);
+      SuccessNotification("User updated successfully");
       setEditable(false);
       onClose();
     } catch (error) {
       console.error("Error updating user:", error.response.data);
+      ErrorNotification("Error updating user");
     }
   };
 
   const handleLogout = async () => {
     try {
       logout();
+      SuccessNotification("Logout successful");
       onClose();
     } catch (error) {
       console.error("Error logging out:", error.response.data);
+      ErrorNotification("Error logging out");
     }
+  };
+
+  // Function to validate all fields
+  const validateFields = () => {
+    let isValid = true;
+
+    // Validate name
+    if (!name.trim()) {
+      setNameError("Name is required");
+      isValid = false;
+    } else {
+      setNameError("");
+    }
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailError("Invalid email address");
+      isValid = false;
+    } else {
+      setEmailError("");
+    }
+
+    // Validate mobile
+    const mobileRegex = /^[0-9]{10}$/;
+    if (!mobileRegex.test(mobile)) {
+      setMobileError("Invalid mobile number (10 digits only)");
+      isValid = false;
+    } else {
+      setMobileError("");
+    }
+
+    return isValid;
   };
 
   return (
@@ -55,6 +106,7 @@ const UserProfileModal = ({ user, onClose, logout }) => {
                 onChange={(e) => setName(e.target.value)}
                 disabled={!editable}
               />
+              {nameError && <p className="text-red-500">{nameError}</p>}
             </div>
             <div className="mb-4">
               <label htmlFor="email" className="text-white block mb-1">
@@ -68,6 +120,7 @@ const UserProfileModal = ({ user, onClose, logout }) => {
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={!editable}
               />
+              {emailError && <p className="text-red-500">{emailError}</p>}
             </div>
             <div className="mb-4">
               <label htmlFor="mobile" className="text-white block mb-1">
@@ -81,6 +134,7 @@ const UserProfileModal = ({ user, onClose, logout }) => {
                 onChange={(e) => setMobile(e.target.value)}
                 disabled={!editable}
               />
+              {mobileError && <p className="text-red-500">{mobileError}</p>}
             </div>
             <div className="flex justify-between">
               {!editable ? (

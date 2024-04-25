@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
+import { useAuth } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
+import {
+  SuccessNotification,
+  ErrorNotification,
+} from "../notifications/notifications";
 
 const AstronomyPictureOfDay = () => {
+  const navigate = useNavigate();
+  const { user, isLoggedIn } = useAuth();
   const [apodData, setApodData] = useState(null);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -10,6 +18,13 @@ const AstronomyPictureOfDay = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+      ErrorNotification("log in please !!!");
+    }
+  }, []);
 
   const fetchAPOD = async () => {
     setLoading(true);
