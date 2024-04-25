@@ -3,6 +3,7 @@ import { useAuth } from "../../context/authContext";
 import { AiOutlineClose } from "react-icons/ai";
 import LoginForm from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterForm/RegisterForm";
+import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import {
   SuccessNotification,
   ErrorNotification,
@@ -18,6 +19,7 @@ const AuthModal = ({ isOpen, onClose, mode }) => {
     password: "",
     confirmPassword: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleToggle = () => {
     setIsLogin(!isLogin);
@@ -29,6 +31,7 @@ const AuthModal = ({ isOpen, onClose, mode }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       if (isLogin) {
         const response = await login(formData);
@@ -40,6 +43,7 @@ const AuthModal = ({ isOpen, onClose, mode }) => {
         }
       } else {
         if (!validateFormData()) {
+          setLoading(false);
           return;
         }
         const response = await register(formData);
@@ -52,6 +56,8 @@ const AuthModal = ({ isOpen, onClose, mode }) => {
       }
     } catch (error) {
       console.error("Error:", error.response ? error.response.data : error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -114,31 +120,37 @@ const AuthModal = ({ isOpen, onClose, mode }) => {
                 </button>
               </div>
 
-              {isLogin ? (
-                <LoginForm
-                  onSubmit={handleSubmit}
-                  formData={formData}
-                  onChange={handleChange}
-                />
+              {loading ? (
+                <LoadingSpinner />
               ) : (
-                <RegisterForm
-                  onSubmit={handleSubmit}
-                  formData={formData}
-                  onChange={handleChange}
-                />
-              )}
+                <>
+                  {isLogin ? (
+                    <LoginForm
+                      onSubmit={handleSubmit}
+                      formData={formData}
+                      onChange={handleChange}
+                    />
+                  ) : (
+                    <RegisterForm
+                      onSubmit={handleSubmit}
+                      formData={formData}
+                      onChange={handleChange}
+                    />
+                  )}
 
-              <p className="text-white mt-4">
-                {isLogin
-                  ? "Don't have an account?"
-                  : "Already have an account?"}
-                <button
-                  onClick={handleToggle}
-                  className="text-white ml-1 underline"
-                >
-                  {isLogin ? "Register" : "Login"}
-                </button>
-              </p>
+                  <p className="text-white mt-4">
+                    {isLogin
+                      ? "Don't have an account?"
+                      : "Already have an account?"}
+                    <button
+                      onClick={handleToggle}
+                      className="text-white ml-1 underline"
+                    >
+                      {isLogin ? "Register" : "Login"}
+                    </button>
+                  </p>
+                </>
+              )}
             </div>
           </div>
         </div>
