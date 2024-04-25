@@ -29,9 +29,9 @@ The frontend is styled using Tailwind CSS for a modern and responsive design.
 
 ## Setup Instructions
 
-1. **Clone the Repository**: `git clone https://github.com/your-username/astronexus.git`
+1. **Clone the Repository**: `git clone https://github.com/sliitcsse/se3040-assignment02-IsuruX98.git`
 2. **Install Dependencies**:
-   - Frontend: `cd astronexus/frontend && npm install`
+   - Frontend: `cd se3040-assignment02-IsuruX98/frontend && npm install`
    - Backend: `cd ../backend && npm install`
 3. **Set Environment Variables**:
    - **Backend**:
