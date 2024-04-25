@@ -116,7 +116,7 @@ const MarsRoverPhotos = () => {
               <option value="earth_date">Query by Earth date</option>
             </select>
           </div>
-          <div className="w-full md:w-1/2">
+          <div className="w-full md:w-1/2 md:mt-0 mt-5">
             <label htmlFor="dateValue" className="text-white block mb-1">
               {dateType === "sol" ? "Martian Sol" : "Earth Date"}
             </label>
