@@ -58,8 +58,8 @@ The application has been thoroughly tested using Jest and React Testing Library 
 
 ## Deployment
 
-- Frontend: The frontend is hosted on Vercel. You can access it [here](frontend_url).
-- Backend: The backend is hosted on Render. You can access it [here](backend_url).
+- Frontend: The frontend is hosted on Vercel. You can access it [here](https://astro-nexus.vercel.app/).
+- Backend: The backend is hosted on Render. You can access it [here](https://astronexus.onrender.com).
 
 ## API Documentation
 
@@ -76,7 +76,6 @@ For detailed documentation on NASA's APIs used in this project, refer to the off
 ### Chosen APIs:
 
 1. **Mars Rover Photos API**: This API provides access to photos taken by NASA's Mars rovers. It allows users to search for photos by Martian sol or Earth date, optionally filtering by camera.
-   
 2. **Astronomy Picture of the Day (APOD) API**: This API provides a new astronomy-related image or video each day, along with a brief description. Users can view images and information from the past as well.
 
 3. **Earth Polychromatic Imaging Camera (EPIC) API**: This API provides imagery of the Earth's surface taken by the EPIC instrument onboard the DSCOVR spacecraft.
