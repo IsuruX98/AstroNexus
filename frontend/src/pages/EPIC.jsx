@@ -26,7 +26,7 @@ const EPIC = () => {
         "Please log in to access Earth Polychromatic Imaging Camera Images."
       );
     }
-  }, []);
+  });
 
   const fetchImageData = async () => {
     setLoading(true);

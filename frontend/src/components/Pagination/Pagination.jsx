@@ -2,7 +2,6 @@ import React from "react";
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const pageNeighbours = 2; // Number of page links to show before and after the current page
-  const totalPageNumbers = pageNeighbours * 2 + 1; // Total page links including current page
 
   // Function to generate an array of page numbers around the current page
   const getPageNumbers = () => {

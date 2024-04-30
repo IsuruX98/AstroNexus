@@ -3,17 +3,14 @@ import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
-import {
-  SuccessNotification,
-  ErrorNotification,
-} from "../notifications/notifications";
+import { ErrorNotification } from "../notifications/notifications";
 import AstronomyPictureOfDayModal from "../components/Models/AstronomyPictureOfDayModal/AstronomyPictureOfDayModal";
 import ApodItem from "../components/ApodItem/ApodItem";
 import Pagination from "../components/Pagination/Pagination";
 
 const AstronomyPictureOfDay = () => {
   const navigate = useNavigate();
-  const { user, isLoggedIn } = useAuth();
+  const { user } = useAuth();
   const [apodData, setApodData] = useState(null);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -31,7 +28,7 @@ const AstronomyPictureOfDay = () => {
         "Please log in to access Astronomy Picture of the Day."
       );
     }
-  }, []);
+  });
 
   const fetchAPOD = async () => {
     setLoading(true);
@@ -74,9 +71,9 @@ const AstronomyPictureOfDay = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems =
-    Array.isArray(apodData) &&
-    apodData.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = Array.isArray(apodData)
+    ? apodData.slice(indexOfFirstItem, indexOfLastItem)
+    : 1;
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 

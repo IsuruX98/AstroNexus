@@ -24,7 +24,7 @@ const MarsRoverPhotos = () => {
       navigate("/");
       ErrorNotification("Please log in to access Mars Rover photos.");
     }
-  }, []);
+  });
 
   const fetchPhotos = async () => {
     setLoading(true);
