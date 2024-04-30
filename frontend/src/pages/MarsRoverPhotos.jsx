@@ -5,6 +5,7 @@ import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { ErrorNotification } from "../notifications/notifications";
 import MarsRoverPhotoCard from "../components/MarsRoverPhotoCard/MarsRoverPhotoCard";
+import Pagination from "../components/Pagination/Pagination";
 
 const MarsRoverPhotos = () => {
   const navigate = useNavigate();
@@ -15,6 +16,8 @@ const MarsRoverPhotos = () => {
   const [camera, setCamera] = useState("all");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
 
   useEffect(() => {
     if (!user) {
@@ -67,6 +70,12 @@ const MarsRoverPhotos = () => {
     event.preventDefault();
     fetchPhotos();
   };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = photos.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="bg-gray-900 min-h-screen text-white py-12 px-12 md:px-8 lg:px-16 xl:px-32">
@@ -169,11 +178,16 @@ const MarsRoverPhotos = () => {
       {error && <p className="text-red-500 mt-4">{error}</p>}
       {photos.length > 0 && (
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {photos.map((photo) => (
+          {currentItems.map((photo) => (
             <MarsRoverPhotoCard key={photo.id} photo={photo} />
           ))}
         </div>
       )}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={Math.ceil(photos.length / itemsPerPage)}
+        onPageChange={paginate}
+      />
     </div>
   );
 };

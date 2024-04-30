@@ -9,6 +9,7 @@ import {
 } from "../notifications/notifications";
 import AstronomyPictureOfDayModal from "../components/Models/AstronomyPictureOfDayModal/AstronomyPictureOfDayModal";
 import ApodItem from "../components/ApodItem/ApodItem";
+import Pagination from "../components/Pagination/Pagination";
 
 const AstronomyPictureOfDay = () => {
   const navigate = useNavigate();
@@ -20,6 +21,8 @@ const AstronomyPictureOfDay = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
 
   useEffect(() => {
     if (!user) {
@@ -69,6 +72,14 @@ const AstronomyPictureOfDay = () => {
     setModalOpen(false);
   };
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems =
+    Array.isArray(apodData) &&
+    apodData.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="bg-gray-900 min-h-screen text-white py-12 px-12 md:px-8 lg:px-16 xl:px-32 relative">
       <div className="md:flex md:justify-between md:items-center block mb-8">
@@ -113,7 +124,7 @@ const AstronomyPictureOfDay = () => {
         <div className="max-w-full mx-auto mt-8">
           {Array.isArray(apodData) ? (
             <div>
-              {apodData.map((item) => (
+              {currentItems.map((item) => (
                 <ApodItem key={item.date} item={item} />
               ))}
             </div>
@@ -122,6 +133,14 @@ const AstronomyPictureOfDay = () => {
           )}
         </div>
       )}
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={
+          Array.isArray(apodData) && Math.ceil(apodData.length / itemsPerPage)
+        }
+        onPageChange={paginate}
+      />
     </div>
   );
 };
