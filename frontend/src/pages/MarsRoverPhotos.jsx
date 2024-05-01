@@ -42,7 +42,7 @@ const MarsRoverPhotos = () => {
       const response = await axios.get(url);
       setPhotos(response.data.photos);
       if (response.data.photos.length === 0) {
-        setError("No photos found for the given inputs.");
+        setError("* No photos found for the given inputs.");
       }
     } catch (error) {
       console.error("Error fetching photos:", error);
@@ -76,6 +76,9 @@ const MarsRoverPhotos = () => {
   const currentItems = photos.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Get today's date in YYYY-MM-DD format
+  const today = new Date().toISOString().split("T")[0];
 
   return (
     <div className="bg-gray-900 min-h-screen text-white py-12 px-12 md:px-8 lg:px-16 xl:px-32">
@@ -131,6 +134,7 @@ const MarsRoverPhotos = () => {
               id="dateValue"
               type={dateType === "sol" ? "number" : "date"}
               value={dateValue}
+              max={dateType !== "sol" ? today : undefined}
               onChange={handleDateValueChange}
               className="block w-full bg-gray-800 text-white border border-gray-700 rounded px-4 py-2 focus:outline-none focus:bg-gray-700 focus:border-gray-500"
             />

@@ -36,6 +36,9 @@ const EPIC = () => {
         `https://api.nasa.gov/EPIC/api/natural/date/${date}?api_key=${process.env.REACT_APP_NASA_API_KEY}`
       );
       setImageData(response.data);
+      if (response.data.length === 0) {
+        setError("* No image data available for the selected date.");
+      }
     } catch (error) {
       console.error("Error fetching image data:", error);
       setError("An error occurred while fetching image data.");
@@ -101,10 +104,10 @@ const EPIC = () => {
       </p>
 
       {loading && <LoadingSpinner />}
-      {error && <p className="text-red-500 text-center mt-4">{error}</p>}
-      {imageData && !loading && !error && imageData.length === 0 && (
-        <p className="text-red-500 text-center mt-4">
-          No image data available for the selected date.
+      {error && <p className="text-red-500 font-bold mt-4">{error}</p>}
+      {!loading && !error && imageData.length === 0 && (
+        <p className="text-white font-bold mt-4">
+          * Enter a date to search for EPIC imagery using Filter Images button.
         </p>
       )}
       {currentItems && (
@@ -114,11 +117,13 @@ const EPIC = () => {
           ))}
         </div>
       )}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={Math.ceil(imageData.length / itemsPerPage)}
-        onPageChange={paginate}
-      />
+      {imageData.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={Math.ceil(imageData.length / itemsPerPage)}
+          onPageChange={paginate}
+        />
+      )}
     </div>
   );
 };

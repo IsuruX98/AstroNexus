@@ -1,6 +1,9 @@
 import React from "react";
 
 const EPICModal = ({ closeModal, handleSubmit, date, setDate, loading }) => {
+  // Get today's date in YYYY-MM-DD format
+  const today = new Date().toISOString().split("T")[0];
+
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-80 flex justify-center items-center z-20">
       <div className="bg-gray-800 rounded-lg p-8 relative">
@@ -31,6 +34,7 @@ const EPICModal = ({ closeModal, handleSubmit, date, setDate, loading }) => {
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
+            max={today}
             className="border rounded-md px-4 py-2 w-full bg-gray-800 text-white focus:outline-none focus:border-blue-500"
           />
           <button
