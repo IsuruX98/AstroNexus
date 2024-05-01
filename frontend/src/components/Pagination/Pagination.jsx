@@ -29,6 +29,9 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     return pageNumbers;
   };
 
+  console.log("currentPage:", currentPage);
+  console.log("totalPages:", totalPages);
+
   return (
     <nav className="mt-8" aria-label="Pagination">
       <ul className="flex justify-center">
@@ -42,7 +45,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
               <button
                 onClick={() => onPageChange(number)}
                 className={`px-3 py-1 bg-gray-800 text-white text-sm font-medium mr-2 rounded ${
-                  currentPage === number ? "bg-gray-600" : ""
+                  currentPage === Number(number) ? "bg-gray-500" : ""
                 }`}
               >
                 {number}
