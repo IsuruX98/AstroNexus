@@ -10,7 +10,7 @@ import Pagination from "../components/Pagination/Pagination";
 
 const AstronomyPictureOfDay = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, authLoading } = useAuth();
   const [apodData, setApodData] = useState(null);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -22,13 +22,13 @@ const AstronomyPictureOfDay = () => {
   const itemsPerPage = 3;
 
   useEffect(() => {
-    if (!user) {
+    if (!authLoading && !user) {
       navigate("/");
       ErrorNotification(
         "Please log in to access Astronomy Picture of the Day."
       );
     }
-  });
+  }, [authLoading, user, navigate]);
 
   const fetchAPOD = async () => {
     setLoading(true);
@@ -76,6 +76,10 @@ const AstronomyPictureOfDay = () => {
     : 1;
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  if (authLoading || !user) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="bg-gray-900 min-h-screen text-white py-12 px-12 md:px-8 lg:px-16 xl:px-32 relative">

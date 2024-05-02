@@ -9,7 +9,7 @@ import Pagination from "../components/Pagination/Pagination";
 
 const MarsRoverPhotos = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, authLoading } = useAuth();
   const [photos, setPhotos] = useState([]);
   const [dateType, setDateType] = useState("sol");
   const [dateValue, setDateValue] = useState("");
@@ -20,11 +20,11 @@ const MarsRoverPhotos = () => {
   const itemsPerPage = 3;
 
   useEffect(() => {
-    if (!user) {
+    if (!authLoading && !user) {
       navigate("/");
-      ErrorNotification("Please log in to access Mars Rover photos.");
+      ErrorNotification("Please log in to access Mars Rover Photos.");
     }
-  });
+  }, [authLoading, user, navigate]);
 
   const fetchPhotos = async () => {
     setLoading(true);
@@ -79,6 +79,10 @@ const MarsRoverPhotos = () => {
 
   // Get today's date in YYYY-MM-DD format
   const today = new Date().toISOString().split("T")[0];
+
+  if (authLoading || !user) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="bg-gray-900 min-h-screen text-white py-12 px-12 md:px-8 lg:px-16 xl:px-32">

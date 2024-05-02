@@ -3,14 +3,14 @@ import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
-import { ErrorNotification } from "../notifications/notifications";
 import EPICModal from "../components/Models/EPICModal/EPICModal";
 import EPICImage from "../components/EPICImage/EPICImage";
 import Pagination from "../components/Pagination/Pagination";
+import { ErrorNotification } from "../notifications/notifications";
 
 const EPIC = () => {
+  const { user, authLoading } = useAuth();
   const navigate = useNavigate();
-  const { user } = useAuth();
   const [date, setDate] = useState("");
   const [imageData, setImageData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -20,13 +20,13 @@ const EPIC = () => {
   const itemsPerPage = 3;
 
   useEffect(() => {
-    if (!user) {
+    if (!authLoading && !user) {
       navigate("/");
       ErrorNotification(
-        "Please log in to access Earth Polychromatic Imaging Camera Images."
+        "Please log in to access Earth Polychromatic Imaging Camera."
       );
     }
-  });
+  }, [authLoading, user, navigate]);
 
   const fetchImageData = async () => {
     setLoading(true);
@@ -65,6 +65,10 @@ const EPIC = () => {
   const currentItems = imageData.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  if (authLoading || !user) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="bg-gray-900 min-h-screen text-white py-12 px-12 md:px-8 lg:px-16 xl:px-32">
