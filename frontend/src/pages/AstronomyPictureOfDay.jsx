@@ -131,13 +131,15 @@ const AstronomyPictureOfDay = () => {
         </div>
       )}
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={
-          Array.isArray(apodData) && Math.ceil(apodData.length / itemsPerPage)
-        }
-        onPageChange={paginate}
-      />
+      {Array.isArray(apodData) && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={
+            Array.isArray(apodData) && Math.ceil(apodData.length / itemsPerPage)
+          }
+          onPageChange={paginate}
+        />
+      )}
     </div>
   );
 };

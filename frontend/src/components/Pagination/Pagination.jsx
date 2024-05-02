@@ -33,19 +33,32 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   console.log("totalPages:", totalPages);
 
   return (
-    <nav className="mt-8" aria-label="Pagination">
-      <ul className="flex justify-center">
+    <nav className="mt-8" aria-label="Page navigation example">
+      <ul className="flex justify-center text-sm">
+        <li>
+          <button
+            onClick={() => onPageChange(currentPage - 1)}
+            className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
+              currentPage === 1 ? "cursor-not-allowed opacity-50" : ""
+            }`}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+        </li>
         {getPageNumbers().map((number, index) => (
           <li key={index}>
             {number === "..." ? (
-              <span className="px-3 py-1 text-gray-600 font-medium mr-2">
+              <span className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 font-medium mr-2">
                 ...
               </span>
             ) : (
               <button
                 onClick={() => onPageChange(number)}
-                className={`px-3 py-1 bg-gray-800 text-white text-sm font-medium mr-2 rounded ${
-                  currentPage === Number(number) ? "bg-gray-500" : ""
+                className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
+                  currentPage === number
+                    ? "text-blue-600 border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+                    : ""
                 }`}
               >
                 {number}
@@ -53,6 +66,17 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             )}
           </li>
         ))}
+        <li>
+          <button
+            onClick={() => onPageChange(currentPage + 1)}
+            className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
+              currentPage === totalPages ? "cursor-not-allowed opacity-50" : ""
+            }`}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </li>
       </ul>
     </nav>
   );

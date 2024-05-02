@@ -187,11 +187,13 @@ const MarsRoverPhotos = () => {
           ))}
         </div>
       )}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={Math.ceil(photos.length / itemsPerPage)}
-        onPageChange={paginate}
-      />
+      {photos.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={Math.ceil(photos.length / itemsPerPage)}
+          onPageChange={paginate}
+        />
+      )}
     </div>
   );
 };
