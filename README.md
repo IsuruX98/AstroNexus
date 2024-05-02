@@ -69,7 +69,22 @@ For detailed documentation on NASA's APIs used in this project, refer to the off
 
 ## Screenshots
 
+### Home
+
 ![Screenshot_25-4-2024_13324_localhost](https://github.com/sliitcsse/se3040-assignment02-IsuruX98/assets/104721314/8f620b10-0f66-41ca-a9eb-c8863aa235de)
+
+### Astronomy Picture of the Day
+
+![Screenshot_2-5-2024_11638_localhost](https://github.com/IsuruX98/AstroNexus/assets/104721314/998597a2-7531-4202-9c78-041dc90e7dae)
+
+### Mars Rover Photos
+
+![Screenshot_2-5-2024_11717_localhost](https://github.com/IsuruX98/AstroNexus/assets/104721314/5f85a66a-1736-4e5f-9a36-a1357bdbe9b1)
+
+### EPIC Imagery
+
+![Screenshot_2-5-2024_11746_localhost](https://github.com/IsuruX98/AstroNexus/assets/104721314/df67ca10-b80a-4fb2-8305-412890b6123a)
+
 
 ## Report: AstroNexus Project
 
@@ -77,7 +92,6 @@ For detailed documentation on NASA's APIs used in this project, refer to the off
 
 1. **Mars Rover Photos API**: This API provides access to photos taken by NASA's Mars rovers. It allows users to search for photos by Martian sol or Earth date, optionally filtering by camera.
 2. **Astronomy Picture of the Day (APOD) API**: This API provides a new astronomy-related image or video each day, along with a brief description. Users can view images and information from the past as well.
-
 3. **Earth Polychromatic Imaging Camera (EPIC) API**: This API provides imagery of the Earth's surface taken by the EPIC instrument onboard the DSCOVR spacecraft.
 
 ### Challenges Faced:
